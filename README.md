@@ -23,7 +23,7 @@ A modern, minimalist Shopify theme for SAKOOFA fashion brand. This theme feature
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/[your-username]/sakoofa-theme.git
+git clone https://github.com/digitallegionke/sakoofa-theme.git
 cd sakoofa-theme
 ```
 
@@ -58,4 +58,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, please contact [your-email@example.com]
+For support, please contact support@digitallegion.ke
