@@ -1,123 +1,105 @@
 {{ 'custom-styles.css' | asset_url | stylesheet_tag }}
 
-<header class="header">
-  <div class="announcement">
-    <div class="announcement-content">
-      {% for i in (1..4) %}
-        <span class="announcement-text">Free shipping on orders over $150</span>
-        <div class="diamond"></div>
-        <span class="announcement-text">20% off your first order</span>
-        <div class="diamond"></div>
-      {% endfor %}
-    </div>
+<div class="announcement-bar">
+  <div class="announcement-content">
+    <p>Free shipping on all orders over €150</p>
   </div>
+</div>
 
-  <div class="nav-bar">
-    <div class="nav-container">
-      <a href="/" class="logo">SAKOOFA</a>
-      <nav class="nav-menu">
-        <a href="/collections/all" class="nav-link">Shop</a>
-        <a href="/collections" class="nav-link">Collections</a>
-        <a href="/pages/about" class="nav-link">About</a>
-        <a href="/pages/contact" class="nav-link">Contact</a>
-      </nav>
+<header class="header">
+  <nav class="nav-bar">
+    <a href="/" class="logo">SAKOOFA</a>
+    <div class="nav-menu">
+      <a href="/collections/all" class="nav-link">SHOP</a>
+      <a href="/collections/best-sellers" class="nav-link">BEST SELLERS</a>
+      <a href="/blogs/journal" class="nav-link">JOURNAL</a>
+      <a href="/pages/features" class="nav-link">FEATURES</a>
+      <a href="/collections/lookbooks" class="nav-link">LOOKBOOKS</a>
+      <a href="/search" class="nav-link">SEARCH</a>
+      <a href="#" class="nav-link">UNITED STATES</a>
+      <a href="/account/login" class="nav-link">LOGIN</a>
+      <a href="/cart" class="nav-link cart-icon">
+        <span class="cart-count">{{ cart.item_count }}</span>
+      </a>
     </div>
-  </div>
+  </nav>
 </header>
 
 <style>
-.header {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  background: transparent;
-}
-
-.announcement {
+.announcement-bar {
   background: #000;
   color: #fff;
   text-align: center;
   padding: 8px 0;
-  font-family: 'DM Mono', monospace;
   font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  white-space: nowrap;
   overflow: hidden;
 }
 
-.announcement-content {
-  white-space: nowrap;
-  animation: scroll 20s linear infinite;
-}
-
-.announcement-text {
-  display: inline-block;
-  padding-right: 50px;
-}
-
-.diamond {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  transform: rotate(45deg);
-  margin: 0 10px;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
 }
 
 .nav-bar {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  padding: 20px 40px;
-}
-
-.nav-container {
-  max-width: 1440px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 24px;
   color: #000;
   text-decoration: none;
-  font-weight: 500;
+  font-family: 'DM Mono', monospace;
+  font-size: 24px;
+  letter-spacing: -0.5px;
 }
 
 .nav-menu {
   display: flex;
+  align-items: center;
   gap: 32px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .nav-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
   color: #000;
   text-decoration: none;
-  text-transform: uppercase;
-  transition: opacity 0.3s ease;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
 }
 
 .nav-link:hover {
   opacity: 0.7;
 }
 
-@media (max-width: 1024px) {
-  .nav-bar {
-    padding: 15px 20px;
-  }
-  
-  .nav-menu {
-    gap: 20px;
-  }
+.cart-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
 }
 
-@media (max-width: 768px) {
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1024px) {
   .nav-menu {
     display: none;
   }
@@ -127,12 +109,11 @@
 {% schema %}
 {
   "name": "Header",
-  "settings": [
+  "settings": [],
+  "presets": [
     {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Announcement Text",
-      "default": "Free shipping on all orders over €100"
+      "name": "Header",
+      "category": "Header"
     }
   ]
 }

@@ -2,14 +2,14 @@
 
 <div class="recent-drops">
   <div class="section-header">
-    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <h2 class="section-title">RECENT DROPS</h2>
     {% if section.settings.view_all_link != blank %}
-      <a href="{{ section.settings.view_all_link }}" class="view-all">View All</a>
+      <a href="{{ section.settings.view_all_link }}" class="view-all">VIEW ALL</a>
     {% endif %}
   </div>
 
   <div class="products-grid">
-    {% for product in section.settings.collection.products limit: 4 %}
+    {% for product in section.settings.collection.products limit: 2 %}
       <a href="{{ product.url }}" class="product-card">
         {% if product.featured_image %}
           <img 
@@ -31,16 +31,95 @@
   </div>
 </div>
 
+<style>
+.recent-drops {
+  padding: 80px 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.view-all {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
+}
+
+.view-all:hover {
+  opacity: 0.7;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.product-card {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.product-card:hover {
+  opacity: 0.9;
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.product-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .recent-drops {
+    padding: 40px 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
 {% schema %}
 {
   "name": "Recent Drops",
   "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "Recent Drops"
-    },
     {
       "type": "collection",
       "id": "collection",
