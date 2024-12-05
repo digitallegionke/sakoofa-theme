@@ -1,0 +1,131 @@
+<div class="header">
+  <div class="overlap-group">
+    <div class="announcement">
+      <div class="navbar">
+        <p class="p">Free shipping on all orders over ₹100</p>
+        <div class="rectangle"></div>
+        <p class="p">Free shipping on all orders over ₹100</p>
+        <div class="rectangle"></div>
+        <p class="p">Free shipping on all orders over ₹100</p>
+        <div class="rectangle"></div>
+        <p class="p">Free shipping on all orders over ₹100</p>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <div class="frame-2">
+        <a href="/" class="logo-link">
+          {% if section.settings.logo != blank %}
+            <img class="SAKOOFA" src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}">
+          {% else %}
+            <span class="SAKOOFA">SAKOOFA</span>
+          {% endif %}
+        </a>
+        <div class="frame-3">
+          <div class="text-wrapper-2">SHOP</div>
+        </div>
+        <div class="frame-3">
+          <div class="text-wrapper-2">BEST SELLERS</div>
+          <div class="text-wrapper-2">JOURNAL</div>
+          <div class="text-wrapper-2">FEATURES</div>
+          <div class="text-wrapper-2">LOOKBOOKS</div>
+          <div class="text-wrapper-2">SEARCH</div>
+          <div class="text-wrapper-2">UNITED STATES</div>
+          <div class="text-wrapper-2">LOGIN</div>
+        </div>
+        <a href="/cart" class="cart-icon">
+          <img class="img" src="{{ 'cart-icon.svg' | asset_url }}" alt="Cart">
+        </a>
+      </div>
+    </div>
+    <div class="hero-section">
+      <div class="hero-image-container">
+        {% if section.settings.image_left != blank %}
+          {{ section.settings.image_left | image_url: 'master' | img_tag: '', 'hero-image' }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-image placeholder' }}
+        {% endif %}
+      </div>
+      
+      <div class="hero-image-container">
+        {% if section.settings.image_right != blank %}
+          {{ section.settings.image_right | image_url: 'master' | img_tag: '', 'hero-image' }}
+        {% else %}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'hero-image placeholder' }}
+        {% endif %}
+      </div>
+
+      <div class="hero-content">
+        <h1 class="hero-title">{{ section.settings.heading }}</h1>
+        {% if section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="hero-button">
+            {{ section.settings.button_text }}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 19V5H19V19H5Z" fill="white" fill-opacity="0.01"/>
+              <path d="M19 12H5M12 5L19 12L12 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hero-image-container {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease-out;
+}
+
+.hero-image-container:hover img {
+  transform: scale(1.05);
+}
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WINTER 2024"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "VIEW COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "category": "Hero"
+    }
+  ]
+}
+{% endschema %}

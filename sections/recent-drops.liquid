@@ -1,0 +1,73 @@
+<div class="recent-drops">
+  <div class="frame-4">
+    <div class="recent-drops-wrapper">
+      <div class="text-wrapper-4">{{ section.settings.title }}</div>
+    </div>
+    <div class="frame-5">
+      <a href="{{ section.settings.view_all_link }}" class="text-wrapper-5">VIEW ALL</a>
+      <img class="img-2" src="{{ 'north-east-24dp-354439-fill0-wght200-grad0-opsz24-1-2.svg' | asset_url }}" alt="View all">
+    </div>
+  </div>
+  <div class="frame-6">
+    {% for block in section.blocks %}
+      {% if block.type == 'product' %}
+        <div class="frame-7">
+          {% if block.settings.image %}
+            <img class="image" src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}">
+          {% endif %}
+          <div class="frame-8">
+            <div class="text-wrapper-6">{{ block.settings.title }}</div>
+            <div class="text-wrapper-7">{{ block.settings.price }}</div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Recent Drops",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "RECENT DROPS"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Product Price"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recent Drops"
+    }
+  ]
+}
+{% endschema %}

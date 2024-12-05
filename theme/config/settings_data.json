@@ -1,0 +1,24 @@
+{
+  "current": {
+    "primary_color": "#000000",
+    "secondary_color": "#ffffff",
+    "heading_font": "dm_mono_n4",
+    "body_font": "albert_sans_n4",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "announcement_text": "Free shipping on all orders over ₹100"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 100,
+          "menu": "main-menu"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+<div class="reviews">
+  <div class="frame-18">
+    <div class="frame-19">
+      <div class="text-wrapper-4">{{ section.settings.title }}</div>
+    </div>
+    <div class="reviews-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'review' %}
+          <div class="review-item">
+            <div class="review-header">
+              {% if block.settings.avatar %}
+                <img class="avatar" src="{{ block.settings.avatar | img_url: '100x' }}" alt="Reviewer">
+              {% endif %}
+              <div class="reviewer-info">
+                <div class="reviewer-name">{{ block.settings.name }}</div>
+                <div class="review-date">{{ block.settings.date }}</div>
+              </div>
+            </div>
+            <div class="rating">
+              {% assign rating = block.settings.rating | round %}
+              {% for i in (1..5) %}
+                <span class="star {% if i <= rating %}filled{% endif %}">★</span>
+              {% endfor %}
+            </div>
+            <div class="review-text">{{ block.settings.text }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.reviews {
+  padding: 4rem 2rem;
+  background-color: #fff;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.review-item {
+  padding: 2rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewer-name {
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #333;
+}
+
+.review-date {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+.rating {
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #ddd;
+  font-size: 18px;
+}
+
+.star.filled {
+  color: #ffd700;
+}
+
+.review-text {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "REVIEWS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Reviewer Avatar"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer Name"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Review Date"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Section",
+      "blocks": [
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

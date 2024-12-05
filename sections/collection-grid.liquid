@@ -1,0 +1,68 @@
+<div class="collection">
+  <div class="frame-11">
+    <div class="frame-12">
+      <div class="collections">{{ section.settings.title }}</div>
+      <div class="frame-13">
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}" class="text-wrapper-{% if forloop.first %}8{% else %}9{% endif %}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="frame-14">
+      {% for block in section.blocks %}
+        {% if block.type == 'image' %}
+          {% if block.settings.image %}
+            <img 
+              class="image-{{ forloop.index | plus: 2 }}" 
+              src="{{ block.settings.image | img_url: 'master' }}" 
+              alt="{{ block.settings.title }}"
+              loading="lazy"
+            >
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "COLLECTIONS"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Collection Menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Collection Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Image Alt Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Grid"
+    }
+  ]
+}
+{% endschema %}

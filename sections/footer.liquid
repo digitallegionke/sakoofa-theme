@@ -1,0 +1,190 @@
+<footer class="footer">
+  <div class="frame-30">
+    <p class="text-wrapper-11">{{ section.settings.newsletter_text }}</p>
+    <form action="/contact#ContactFooter" method="post" id="ContactFooter" accept-charset="UTF-8" class="frame-31">
+      <input type="hidden" name="form_type" value="customer">
+      <input type="hidden" name="utf8" value="✓">
+      <input 
+        type="email" 
+        name="contact[email]" 
+        id="ContactFooter-email" 
+        class="email-address" 
+        value="{% if customer %}{{ customer.email }}{% endif %}" 
+        placeholder="EMAIL ADDRESS" 
+        required
+      >
+      <button type="submit">
+        <img class="img-2" src="{{ 'trending-flat-24dp-354439-fill0-wght200-grad0-opsz24-1.svg' | asset_url }}" alt="Subscribe">
+      </button>
+    </form>
+  </div>
+  <div class="frame-32">
+    <div class="shop-blog-about">
+      {% for link in linklists[section.settings.footer_menu_1].links %}
+        <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a><br>
+      {% endfor %}
+    </div>
+    <div class="lookbook-press">
+      {% for link in linklists[section.settings.footer_menu_2].links %}
+        <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a><br>
+      {% endfor %}
+    </div>
+    <p class="text-wrapper-12">{{ section.settings.disclaimer_text }}</p>
+    <div class="frame-wrapper">
+      <div class="frame-33">
+        {% for block in section.blocks %}
+          {% if block.type == 'social_link' %}
+            <a href="{{ block.settings.url }}" class="text-wrapper-13" target="_blank" rel="noopener">
+              {{ block.settings.platform }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer {
+  padding: 4rem 2rem;
+  background-color: #000;
+  color: #fff;
+}
+
+.frame-30 {
+  margin-bottom: 4rem;
+}
+
+.text-wrapper-11 {
+  font-family: "DM Mono", monospace;
+  font-size: 24px;
+  margin-bottom: 2rem;
+}
+
+.frame-31 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 1rem;
+}
+
+.email-address {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: "DM Mono", monospace;
+  font-size: 16px;
+  width: 100%;
+}
+
+.email-address::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.frame-32 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.text-wrapper-12 {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.frame-33 {
+  display: flex;
+  gap: 2rem;
+}
+
+.text-wrapper-13 {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Receive special offers and first look at new products."
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_1",
+      "label": "Footer Menu 1"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_2",
+      "label": "Footer Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer_text",
+      "label": "Disclaimer Text",
+      "default": "This is a DEMO store. The products you see on this site are not for sale."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "Social Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "platform",
+          "label": "Platform Name",
+          "default": "Facebook"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Profile URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "Facebook"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "Instagram"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "Twitter"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

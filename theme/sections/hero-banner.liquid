@@ -1,0 +1,45 @@
+<div class="frame hero-banner" {% if section.settings.background_image %}style="background-image: url({{ section.settings.background_image | image_url: width: 1440 }});"{% endif %}>
+  <div class="group">
+    <div class="winter">{{ section.settings.heading }}</div>
+    {% if section.settings.button_label != blank %}
+      <div class="div-wrapper">
+        <a href="{{ section.settings.button_link }}" class="text-wrapper">{{ section.settings.button_label }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WINTER 2024"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "VIEW COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}
