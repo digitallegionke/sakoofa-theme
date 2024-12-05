@@ -1,3 +1,129 @@
+{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+
+<header class="header">
+  <div class="announcement">
+    <div class="announcement-content">
+      {% for i in (1..4) %}
+        <span class="announcement-text">Free shipping on orders over $150</span>
+        <div class="diamond"></div>
+        <span class="announcement-text">20% off your first order</span>
+        <div class="diamond"></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-container">
+      <a href="/" class="logo">SAKOOFA</a>
+      <nav class="nav-menu">
+        <a href="/collections/all" class="nav-link">Shop</a>
+        <a href="/collections" class="nav-link">Collections</a>
+        <a href="/pages/about" class="nav-link">About</a>
+        <a href="/pages/contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.announcement {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 8px 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.announcement-content {
+  white-space: nowrap;
+  animation: scroll 20s linear infinite;
+}
+
+.announcement-text {
+  display: inline-block;
+  padding-right: 50px;
+}
+
+.diamond {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  margin: 0 10px;
+}
+
+.nav-bar {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+}
+
+.nav-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 24px;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #000;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+  .nav-bar {
+    padding: 15px 20px;
+  }
+  
+  .nav-menu {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+}
+</style>
+
 {% schema %}
 {
   "name": "Header",
@@ -11,136 +137,3 @@
   ]
 }
 {% endschema %}
-
-<div class="announcement-bar">
-  <div class="announcement-scroll">
-    {% for i in (1..4) %}
-      <span class="announcement-text">{{ section.settings.announcement_text }}</span>
-      <span class="announcement-dot"></span>
-    {% endfor %}
-  </div>
-</div>
-
-<header class="header">
-  <div class="header-container">
-    <div class="logo-container">
-      <a href="/" class="logo">
-        <span class="logo-text">SAKOOFA</span>
-      </a>
-    </div>
-    
-    <nav class="nav-menu">
-      <a href="/collections/all" class="nav-link">SHOP</a>
-      <a href="/collections/best-sellers" class="nav-link">BEST SELLERS</a>
-      <a href="/blogs/journal" class="nav-link">JOURNAL</a>
-      <a href="/pages/features" class="nav-link">FEATURES</a>
-      <a href="/collections/lookbooks" class="nav-link">LOOKBOOKS</a>
-      <a href="/search" class="nav-link">SEARCH</a>
-      <a href="#" class="nav-link">UNITED STATES</a>
-      <a href="/account" class="nav-link">LOGIN</a>
-      <a href="/cart" class="nav-link cart-icon">
-        {% render 'icon-cart' %}
-      </a>
-    </nav>
-  </div>
-</header>
-
-<style>
-.announcement-bar {
-  width: 100%;
-  height: 43px;
-  background-color: #000;
-  color: #fff;
-  overflow: hidden;
-  position: relative;
-}
-
-.announcement-scroll {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 12px;
-  left: 0;
-  animation: scroll 20s linear infinite;
-  white-space: nowrap;
-}
-
-.announcement-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18.228px;
-  margin-right: 34px;
-}
-
-.announcement-dot {
-  width: 8.49px;
-  height: 8.49px;
-  background-color: #fff;
-  margin-right: 34px;
-}
-
-.header {
-  width: 100%;
-  height: 78px;
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 43px;
-  z-index: 100;
-}
-
-.header-container {
-  max-width: 1440px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 24px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 56px;
-  align-items: center;
-}
-
-.nav-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  text-decoration: none;
-  line-height: 18.228px;
-  transition: opacity 0.2s ease;
-}
-
-.nav-link:hover {
-  opacity: 0.8;
-}
-
-.cart-icon {
-  width: 26.68px;
-  height: 26px;
-}
-
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@media screen and (max-width: 1024px) {
-  .nav-menu {
-    display: none;
-  }
-}
-</style>

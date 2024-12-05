@@ -3,11 +3,6 @@
   "name": "Hero Banner",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Image"
-    },
-    {
       "type": "text",
       "id": "heading",
       "label": "Heading",
@@ -34,143 +29,98 @@
 }
 {% endschema %}
 
-<div class="header">
-  <div class="overlap-group">
-    <div class="announcement">
-      <div class="navbar">
-        <p class="p">Free shipping on all orders over ₹100</p>
-        <div class="rectangle"></div>
-        <p class="p">Free shipping on all orders over ₹100</p>
-        <div class="rectangle"></div>
-        <p class="p">Free shipping on all orders over ₹100</p>
-        <div class="rectangle"></div>
-        <p class="p">Free shipping on all orders over ₹100</p>
-      </div>
-    </div>
-    <div class="nav-bar">
-      <div class="frame-2">
-        <a href="/" class="logo-link">
-          {% if section.settings.logo != blank %}
-            <img class="SAKOOFA" src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}">
-          {% else %}
-            <span class="SAKOOFA">SAKOOFA</span>
-          {% endif %}
-        </a>
-        <div class="frame-3">
-          <div class="text-wrapper-2">SHOP</div>
-        </div>
-        <div class="frame-3">
-          <div class="text-wrapper-2">BEST SELLERS</div>
-          <div class="text-wrapper-2">JOURNAL</div>
-          <div class="text-wrapper-2">FEATURES</div>
-          <div class="text-wrapper-2">LOOKBOOKS</div>
-          <div class="text-wrapper-2">SEARCH</div>
-          <div class="text-wrapper-2">UNITED STATES</div>
-          <div class="text-wrapper-2">LOGIN</div>
-        </div>
-        <a href="/cart" class="cart-icon">
-          <img class="img" src="{{ 'cart-icon.svg' | asset_url }}" alt="Cart">
-        </a>
-      </div>
-    </div>
-    <div class="hero-section">
-      {% if section.settings.background_image != blank %}
-        {{ section.settings.background_image | image_url: width: 1440 | image_tag: 
-          class: 'hero-image',
-          loading: 'eager',
-          height: 835
-        }}
-      {% else %}
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-image placeholder' }}
-      {% endif %}
-      
-      <div class="hero-content">
-        <h1 class="hero-title">{{ section.settings.heading }}</h1>
-        {% if section.settings.button_link != blank %}
-          <a href="{{ section.settings.button_link }}" class="hero-button">
-            {{ section.settings.button_text }}
-          </a>
-        {% endif %}
-      </div>
-    </div>
+<div class="banner">
+  <div class="banner-content">
+    <h1 class="banner-title">{{ section.settings.heading }}</h1>
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="banner-button">{{ section.settings.button_text }}</a>
+    {% endif %}
   </div>
 </div>
 
 <style>
-.hero-section {
-  width: 1440px;
-  height: 835px;
-  position: relative;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.hero-image {
+.banner {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100vh;
+  position: relative;
+  margin-top: 121px; /* Header height (78px) + Announcement bar height (43px) */
+  background: #000;
 }
 
-.hero-content {
+.banner-content {
   position: absolute;
-  top: 603px;
+  bottom: 120px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   color: #fff;
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 40px;
 }
 
-.hero-title {
+.banner-title {
   font-family: 'DM Mono', monospace;
   font-size: 62px;
   font-weight: 400;
   line-height: 64px;
   text-transform: uppercase;
   margin-bottom: 35px;
-  width: 409px;
+  letter-spacing: 2px;
 }
 
-.hero-button {
+.banner-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 18px 73px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.14);
+  background: rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(12px);
   font-family: 'Albert Sans', sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: #fff;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
 }
 
-.hero-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.banner-button:hover {
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
 
-@media screen and (max-width: 1440px) {
-  .hero-section {
-    width: 100%;
+@media screen and (max-width: 1024px) {
+  .banner-content {
+    bottom: 80px;
+  }
+
+  .banner-title {
+    font-size: 48px;
+    line-height: 52px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .hero-content {
-    width: 90%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .banner {
+    margin-top: 80px;
   }
 
-  .hero-title {
-    font-size: 42px;
-    line-height: 1.2;
-    width: 100%;
+  .banner-content {
+    bottom: 60px;
+    padding: 0 20px;
   }
 
-  .hero-button {
-    padding: 15px 40px;
+  .banner-title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .banner-button {
+    padding: 15px 50px;
+    font-size: 14px;
   }
 }
 </style>
