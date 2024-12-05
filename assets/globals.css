@@ -1,28 +1,43 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Albert+Sans:wght@400;700&display=swap');
+/* Import Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-* {
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+/* Base Styles */
+@layer base {
+  :root {
+    --font-mono: 'Roboto Mono', 'SF Mono', Menlo, monospace;
+    --font-sans: Inter, -apple-system, 'SF Pro Text', system-ui, sans-serif;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
 }
 
-html,
-body {
-  margin: 0;
-  height: 100%;
-}
+/* Custom Animations */
+@layer utilities {
+  .marquee {
+    animation: marquee 20s linear infinite;
+  }
 
-button:focus-visible {
-  outline: 2px solid #4a90e2 !important;
-  outline: -webkit-focus-ring-color auto 5px !important;
-}
-
-a {
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }

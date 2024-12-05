@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ request.locale.iso_code }}">
+<html lang="{{ request.locale.iso_code }}" class="font-geist-sans">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,19 +13,19 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    {{ 'fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'tailwind.css' | asset_url | stylesheet_tag }}
+    {{ 'globals.css' | asset_url | stylesheet_tag }}
 
-    <!-- Theme CSS -->
-    {{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+    <!-- Scripts -->
+    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
-    <!-- Shopify-specific head content -->
     {{ content_for_header }}
   </head>
 
-  <body>
+  <body class="min-h-screen bg-white antialiased">
     <div class="announcement-bar">
       <p>Free shipping on all orders over €100</p>
     </div>
@@ -90,9 +90,14 @@
       </div>
     </footer>
 
-    <!-- Shopify-specific footer scripts -->
     {{ content_for_footer }}
 
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
+
+{% schema %}
+{
+  "name": "Theme Layout"
+}
+{% endschema %}
