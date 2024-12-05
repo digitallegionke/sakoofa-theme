@@ -4,18 +4,7 @@
   <p>Free shipping on all orders over €100</p>
 </div>
 
-<div class="header">
-  <a href="/" class="logo">SAKOOFA</a>
-  <div class="nav-menu">
-    <a href="/collections/all">SHOP</a>
-    <a href="/collections/best-sellers">BEST SELLERS</a>
-    <a href="/blogs/journal">JOURNAL</a>
-    <a href="/pages/features">FEATURES</a>
-    <a href="/collections/lookbooks">LOOKBOOKS</a>
-    <a href="/search">SEARCH</a>
-    <a href="/cart">CART</a>
-  </div>
-</div>
+{% section 'header' %}
 
 <div class="hero-section">
   <div class="hero-split">
@@ -29,10 +18,12 @@
 </div>
 
 {% section 'hero-banner' %}
-{% section 'recent-drops' %}
-{% section 'collection-grid' %}
-{% section 'reviews' %}
-{% section 'blog-section' %}
+
+<div class="page-width">
+  {% section 'collection-grid' %}
+  {% section 'reviews' %}
+  {% section 'blog-section' %}
+</div>
 
 <div class="collections">
   <h2>COLLECTIONS</h2>
@@ -63,3 +54,5 @@
   {% endfor %}
   <a href="/blogs/news">VIEW ALL BLOGS</a>
 </div>
+
+{% section 'footer' %}

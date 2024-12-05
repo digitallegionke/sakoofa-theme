@@ -1,3 +1,39 @@
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WINTER 2024"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "VIEW COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "category": "Hero"
+    }
+  ]
+}
+{% endschema %}
+
 <div class="header">
   <div class="overlap-group">
     <div class="announcement">
@@ -38,31 +74,21 @@
       </div>
     </div>
     <div class="hero-section">
-      <div class="hero-image-container">
-        {% if section.settings.image_left != blank %}
-          {{ section.settings.image_left | image_url: 'master' | img_tag: '', 'hero-image' }}
-        {% else %}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-image placeholder' }}
-        {% endif %}
-      </div>
+      {% if section.settings.background_image != blank %}
+        {{ section.settings.background_image | image_url: width: 1440 | image_tag: 
+          class: 'hero-image',
+          loading: 'eager',
+          height: 835
+        }}
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-image placeholder' }}
+      {% endif %}
       
-      <div class="hero-image-container">
-        {% if section.settings.image_right != blank %}
-          {{ section.settings.image_right | image_url: 'master' | img_tag: '', 'hero-image' }}
-        {% else %}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'hero-image placeholder' }}
-        {% endif %}
-      </div>
-
       <div class="hero-content">
         <h1 class="hero-title">{{ section.settings.heading }}</h1>
         {% if section.settings.button_link != blank %}
           <a href="{{ section.settings.button_link }}" class="hero-button">
             {{ section.settings.button_text }}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 19V5H19V19H5Z" fill="white" fill-opacity="0.01"/>
-              <path d="M19 12H5M12 5L19 12L12 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </a>
         {% endif %}
       </div>
@@ -71,61 +97,80 @@
 </div>
 
 <style>
-.hero-image-container {
-  width: 50%;
-  height: 100%;
+.hero-section {
+  width: 1440px;
+  height: 835px;
+  position: relative;
+  margin: 0 auto;
   overflow: hidden;
 }
 
-.hero-image-container img {
+.hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease-out;
 }
 
-.hero-image-container:hover img {
-  transform: scale(1.05);
+.hero-content {
+  position: absolute;
+  top: 603px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+}
+
+.hero-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 62px;
+  font-weight: 400;
+  line-height: 64px;
+  text-transform: uppercase;
+  margin-bottom: 35px;
+  width: 409px;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 73px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.14);
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 1440px) {
+  .hero-section {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-content {
+    width: 90%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-title {
+    font-size: 42px;
+    line-height: 1.2;
+    width: 100%;
+  }
+
+  .hero-button {
+    padding: 15px 40px;
+  }
 }
 </style>
-
-{% schema %}
-{
-  "name": "Hero Banner",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image_left",
-      "label": "Left Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_right",
-      "label": "Right Image"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "WINTER 2024"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "VIEW COLLECTION"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Hero Banner",
-      "category": "Hero"
-    }
-  ]
-}
-{% endschema %}
