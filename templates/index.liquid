@@ -1,119 +1,31 @@
-{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+{% section 'hero' %}
 
-{% section 'header' %}
-{% section 'hero-banner' %}
-{% section 'recent-drops' %}
-{% section 'collections-list' %}
-{% section 'blog-posts' %}
-{% section 'newsletter' %}
-
-<div class="page-content">
-  <div class="collections-section">
-    <h2 class="section-title">COLLECTIONS</h2>
-    <div class="collections-grid">
-      <!-- Collection items will be added here -->
-    </div>
+<section class="section-sa">
+  <div class="section-wrap">
+    {% section 'featured-collection' %}
   </div>
+</section>
 
-  <div class="reviews-section">
-    <div class="review-content">
-      <blockquote class="review-text">
-        "Prices can't be beaten. Found kicks here that I'd been searching for months. Best spot for rare finds!"
-      </blockquote>
-      <cite class="review-author">- Chris L.</cite>
-    </div>
+<section class="section-sa">
+  <div class="section-wrap">
+    {% section 'collection-tabs' %}
   </div>
+</section>
 
-  <div class="blog-section">
-    <h2 class="section-title">BLOG</h2>
-    <div class="blog-link">
-      <a href="/blogs/all">VIEW ALL BLOG</a>
-    </div>
+<section class="section-sa">
+  <div class="section-wrap">
+    {% section 'blog-posts' %}
   </div>
-</div>
+</section>
 
-<style>
-.page-content {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 80px 40px;
-}
+<section class="section-sa">
+  <div class="section-wrap">
+    {% section 'reviews' %}
+  </div>
+</section>
 
-.section-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.collections-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  margin-bottom: 80px;
-}
-
-.reviews-section {
-  text-align: center;
-  padding: 80px 0;
-  background: #f8f8f8;
-  margin: 80px 0;
-}
-
-.review-content {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.review-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 24px;
-  line-height: 1.4;
-  margin-bottom: 20px;
-}
-
-.review-author {
-  font-family: 'Albert Sans', sans-serif;
-  font-size: 16px;
-  color: #666;
-}
-
-.blog-section {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.blog-link a {
-  font-family: 'Albert Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #000;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-@media screen and (max-width: 768px) {
-  .page-content {
-    padding: 40px 20px;
-  }
-
-  .section-title {
-    font-size: 20px;
-    margin-bottom: 30px;
-  }
-
-  .reviews-section {
-    padding: 60px 0;
-    margin: 60px 0;
-  }
-
-  .review-text {
-    font-size: 20px;
-  }
-}
-</style>
-
-{% section 'footer' %}
+<section class="section-sa footer-wrapper-sa">
+  <div class="section-wrap">
+    {% section 'newsletter' %}
+  </div>
+</section>

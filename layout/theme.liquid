@@ -1,103 +1,41 @@
 <!DOCTYPE html>
-<html lang="{{ request.locale.iso_code }}" class="font-geist-sans">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
-    <link rel="canonical" href="{{ canonical_url }}">
+<html data-wf-page="{{ page.id }}" data-wf-site="{{ shop.id }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="">
+  <link rel="canonical" href="{{ canonical_url }}">
+  
+  <title>{{ page_title }}</title>
+  
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+  
+  {{ content_for_header }}
+  
+  <!-- Theme stylesheets -->
+  {{ 'webflow-style.css' | asset_url | stylesheet_tag }}
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Theme scripts -->
+  <script src="{{ 'jquery.js' | asset_url }}" defer></script>
+  <script src="{{ 'webflow-script.js' | asset_url }}" defer></script>
+</head>
 
-    <title>{{ page_title | escape }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
-
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
-
-    <!-- Styles -->
-    {{ 'fonts.css' | asset_url | stylesheet_tag }}
-    {{ 'tailwind.css' | asset_url | stylesheet_tag }}
-    {{ 'globals.css' | asset_url | stylesheet_tag }}
-
-    <!-- Scripts -->
-    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-
-    {{ content_for_header }}
-  </head>
-
-  <body class="min-h-screen bg-white antialiased">
-    <div class="announcement-bar">
-      <p>Free shipping on all orders over €100</p>
-    </div>
-
-    <header class="header">
-      <div class="nav-container">
-        <a href="/" class="logo">SAKOOFA</a>
-        <nav class="nav-menu">
-          <a href="/collections/all" class="nav-link">SHOP</a>
-          <a href="/collections/best-sellers" class="nav-link">BEST SELLERS</a>
-          <a href="/blogs/journal" class="nav-link">JOURNAL</a>
-          <a href="/pages/features" class="nav-link">FEATURES</a>
-          <a href="/collections/lookbooks" class="nav-link">LOOKBOOKS</a>
-          <a href="/search" class="nav-link">SEARCH</a>
-          <a href="#" class="nav-link">UNITED STATES</a>
-          <a href="/account/login" class="nav-link">LOGIN</a>
-          <a href="/cart" class="nav-link">CART</a>
-        </nav>
-      </div>
-    </header>
-
-    <main role="main" id="MainContent">
-      {{ content_for_layout }}
-    </main>
-
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-links">
-          <div class="footer-column">
-            <h3>Shop</h3>
-            <a href="/collections/all">All Products</a>
-            <a href="/collections/best-sellers">Best Sellers</a>
-            <a href="/collections/new-arrivals">New Arrivals</a>
-          </div>
-          <div class="footer-column">
-            <h3>About</h3>
-            <a href="/pages/about">Our Story</a>
-            <a href="/pages/contact">Contact</a>
-            <a href="/pages/faq">FAQ</a>
-          </div>
-          <div class="footer-column">
-            <h3>Legal</h3>
-            <a href="/policies/privacy-policy">Privacy Policy</a>
-            <a href="/policies/terms-of-service">Terms of Service</a>
-            <a href="/policies/refund-policy">Refund Policy</a>
-          </div>
-          <div class="footer-column">
-            <h3>Newsletter</h3>
-            <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
-            <form action="/contact#contact_form" method="post" class="newsletter">
-              <input type="email" name="contact[email]" class="newsletter-input" placeholder="Enter your email">
-            </form>
-          </div>
-        </div>
-        <div class="footer-social">
-          <a href="#" target="_blank">Facebook</a>
-          <a href="#" target="_blank">Instagram</a>
-          <a href="#" target="_blank">Twitter</a>
-          <a href="#" target="_blank">LinkedIn</a>
-          <a href="#" target="_blank">YouTube</a>
-        </div>
-      </div>
-    </footer>
-
-    {{ content_for_footer }}
-
-    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
-  </body>
+<body>
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
+  
+  <main role="main">
+    {{ content_for_layout }}
+  </main>
+  
+  {% section 'footer' %}
+</body>
 </html>
-
-{% schema %}
-{
-  "name": "Theme Layout"
-}
-{% endschema %}

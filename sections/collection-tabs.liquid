@@ -1,0 +1,125 @@
+<div class="section-content">
+  <div id="w-node-_444b9522-2563-5e59-4f94-f4c0606c839f-1362cce0" class="title-content">
+    <div class="title">{{ section.settings.title }}</div>
+    <div class="frame-15">
+      {% for block in section.blocks %}
+        {% if block.type == 'collection_tab' %}
+          <div class="text-13 {% if forloop.first %}text-12{% endif %}" 
+               data-collection="{{ block.settings.collection.handle }}">
+            {{ block.settings.collection.title | upcase }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="div-block-18">
+    <div class="div-block-24">
+      {% for block in section.blocks %}
+        {% if block.type == 'collection_tab' %}
+          <div class="collection-images" data-collection="{{ block.settings.collection.handle }}">
+            {% for product in block.settings.collection.products limit: 1 %}
+              <img src="{{ product.featured_image | img_url: 'master' }}"
+                   loading="lazy"
+                   alt="{{ product.title }}"
+                   class="collection-image"/>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    <div class="div-block-9">
+      <a href="{{ section.settings.view_all_link }}" class="secondary-button">
+        <div class="text-8">VIEW ALL</div>
+        <img src="{{ 'vectors-wrapper-3.svg' | asset_url }}" loading="lazy" width="24" height="24" alt="" class="vectors-wrapper-8"/>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Tabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Collections"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Tabs",
+      "blocks": [
+        {
+          "type": "collection_tab"
+        },
+        {
+          "type": "collection_tab"
+        },
+        {
+          "type": "collection_tab"
+        },
+        {
+          "type": "collection_tab"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.collection-images {
+  display: none;
+}
+.collection-images.active {
+  display: block;
+}
+{% endstylesheet %}
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.text-13, .text-12');
+  const collections = document.querySelectorAll('.collection-images');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const collectionHandle = tab.dataset.collection;
+      
+      // Update active tab
+      tabs.forEach(t => t.classList.remove('text-12'));
+      tab.classList.add('text-12');
+      
+      // Show corresponding collection
+      collections.forEach(c => {
+        if (c.dataset.collection === collectionHandle) {
+          c.style.display = 'block';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+{% endjavascript %}

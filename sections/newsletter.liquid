@@ -1,108 +1,24 @@
-{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
-
-<div class="newsletter">
-  <div class="newsletter-content">
-    <h2 class="newsletter-title">{{ section.settings.title }}</h2>
-    <p class="newsletter-description">{{ section.settings.description }}</p>
-    
-    {% form 'customer', class: 'newsletter-form' %}
-      <input type="hidden" name="contact[tags]" value="newsletter">
-      <input 
-        type="email" 
-        name="contact[email]" 
-        class="newsletter-input"
-        placeholder="{{ section.settings.placeholder }}"
-        required
-      >
-      <button type="submit" class="newsletter-button">
-        {{ section.settings.button_label }}
-      </button>
-    {% endform %}
+<div class="section-content footer-sa">
+  <div class="div-block-18">
+    <div class="newsletter">
+      <div class="frame-18">
+        <div class="text-block-3">{{ section.settings.heading | newline_to_br }}</div>
+      </div>
+      
+      {% form 'customer', class: 'newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" 
+               name="contact[email]" 
+               class="newsletter-input"
+               placeholder="{{ section.settings.email_placeholder }}"
+               required>
+        <button type="submit" class="newsletter-submit">
+          {{ section.settings.button_text }}
+        </button>
+      {% endform %}
+    </div>
   </div>
 </div>
-
-<style>
-.newsletter {
-  padding: 100px 40px;
-  background: #000;
-  color: #fff;
-}
-
-.newsletter-content {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.newsletter-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 32px;
-  margin-bottom: 16px;
-  letter-spacing: -0.4px;
-}
-
-.newsletter-description {
-  font-family: 'Albert Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  opacity: 0.8;
-  margin-bottom: 32px;
-}
-
-.newsletter-form {
-  display: flex;
-  gap: 12px;
-  max-width: 440px;
-  margin: 0 auto;
-}
-
-.newsletter-input {
-  flex: 1;
-  height: 48px;
-  padding: 0 16px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.4);
-  color: #fff;
-  font-family: 'Albert Sans', sans-serif;
-  font-size: 15px;
-}
-
-.newsletter-input::placeholder {
-  color: rgba(255,255,255,0.6);
-}
-
-.newsletter-button {
-  height: 48px;
-  padding: 0 32px;
-  background: #fff;
-  color: #000;
-  border: none;
-  font-family: 'Albert Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.newsletter-button:hover {
-  background: rgba(255,255,255,0.9);
-  transform: translateY(-2px);
-}
-
-@media (max-width: 640px) {
-  .newsletter {
-    padding: 60px 20px;
-  }
-
-  .newsletter-form {
-    flex-direction: column;
-  }
-
-  .newsletter-button {
-    width: 100%;
-  }
-}
-</style>
 
 {% schema %}
 {
@@ -110,34 +26,55 @@
   "settings": [
     {
       "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Subscribe to our newsletter"
+      "id": "heading",
+      "label": "Heading",
+      "default": "Receive special offers and first look at\nnew products."
     },
     {
       "type": "text",
-      "id": "description",
-      "label": "Description",
-      "default": "Stay updated with our latest collections, stories and exclusive offers."
-    },
-    {
-      "type": "text",
-      "id": "placeholder",
-      "label": "Input Placeholder",
+      "id": "email_placeholder",
+      "label": "Email placeholder text",
       "default": "Enter your email"
     },
     {
       "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
+      "id": "button_text",
+      "label": "Button text",
       "default": "Subscribe"
     }
   ],
   "presets": [
     {
-      "name": "Newsletter",
-      "category": "Promotional"
+      "name": "Newsletter"
     }
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.newsletter-submit {
+  padding: 10px 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.newsletter-submit:hover {
+  background: #333;
+}
+{% endstylesheet %}

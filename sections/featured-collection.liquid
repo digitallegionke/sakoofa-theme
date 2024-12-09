@@ -1,107 +1,34 @@
-{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
-
-<div class="featured-collection">
-  <div class="section-header">
-    <h2 class="section-title">{{ section.settings.title }}</h2>
+<div class="section-content">
+  <div id="w-node-f2a41497-9d30-f64b-72cc-634bd0b7ce0e-1362cce0" class="title-content">
+    <div class="title">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
     {% if section.settings.view_all_link != blank %}
-      <a href="{{ section.settings.view_all_link }}" class="view-all">View All</a>
+      <a href="{{ section.settings.view_all_link }}" class="secondary-button">
+        <div class="text-8">VIEW ALL</div>
+        <img src="{{ 'vectors-wrapper-3.svg' | asset_url }}" loading="lazy" width="24" height="24" alt="" class="vectors-wrapper-8"/>
+      </a>
     {% endif %}
   </div>
 
-  <div class="collection-grid">
-    {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
-      <a href="{{ product.url }}" class="collection-card">
-        {% if product.featured_image %}
-          <img 
-            src="{{ product.featured_image | img_url: '800x' }}"
-            alt="{{ product.featured_image.alt | escape }}"
-            class="collection-image"
-            loading="lazy"
-          >
-        {% else %}
-          {{ 'product-1' | placeholder_svg_tag: 'collection-image placeholder' }}
-        {% endif %}
-        
-        <div class="collection-info">
-          <h3 class="collection-title">{{ product.title }}</h3>
-          <span class="collection-price">{{ product.price | money }}</span>
-        </div>
-      </a>
+  <div class="recent-cards">
+    {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+      <div class="card-2">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | img_url: 'master' }}" 
+               loading="lazy" 
+               width="500" 
+               alt="{{ product.title }}" 
+               class="image"/>
+          <div class="frame-12">
+            <div class="text-9">{{ product.title }}</div>
+            <div class="text-10">{{ product.price | money }}</div>
+          </div>
+        </a>
+      </div>
     {% endfor %}
   </div>
 </div>
-
-<style>
-.featured-collection {
-  padding: 80px 40px;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.collection-card {
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.3s ease;
-}
-
-.collection-card:hover {
-  transform: translateY(-5px);
-}
-
-.collection-image {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-.collection-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.collection-title {
-  font-family: 'Albert Sans', sans-serif;
-  font-size: 17px;
-  font-weight: 500;
-}
-
-.collection-price {
-  font-family: 'DM Mono', monospace;
-  font-size: 16px;
-  opacity: 0.5;
-}
-
-@media (max-width: 1024px) {
-  .collection-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .featured-collection {
-    padding: 40px 20px;
-  }
-
-  .collection-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
 
 {% schema %}
 {
@@ -110,8 +37,8 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Section Title",
-      "default": "Featured Collection"
+      "label": "Title",
+      "default": "Recent Drops"
     },
     {
       "type": "collection",
@@ -121,11 +48,11 @@
     {
       "type": "range",
       "id": "products_to_show",
-      "min": 3,
+      "min": 2,
       "max": 12,
-      "step": 3,
-      "default": 6,
-      "label": "Products to Show"
+      "step": 2,
+      "default": 2,
+      "label": "Number of products to show"
     },
     {
       "type": "url",
