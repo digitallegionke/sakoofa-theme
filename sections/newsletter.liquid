@@ -1,20 +1,29 @@
 <div class="section-content footer-sa">
   <div class="div-block-18">
-    <div class="newsletter">
+    <div id="w-node-a7bc5a15-ced1-2661-adfb-c50a871cb8c2-1362cce0" class="newsletter">
       <div class="frame-18">
         <div class="text-block-3">{{ section.settings.heading | newline_to_br }}</div>
       </div>
       
       {% form 'customer', class: 'newsletter-form' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
-        <input type="email" 
-               name="contact[email]" 
-               class="newsletter-input"
-               placeholder="{{ section.settings.email_placeholder }}"
-               required>
-        <button type="submit" class="newsletter-submit">
-          {{ section.settings.button_text }}
-        </button>
+        <div class="newsletter-form">
+          <input type="email"
+                 name="contact[email]"
+                 class="text-field w-input"
+                 value="{% if customer %}{{ customer.email }}{% endif %}"
+                 placeholder="{{ section.settings.email_placeholder }}"
+                 required>
+          <input type="submit"
+                 value="{{ section.settings.button_label }}"
+                 class="submit-button w-button">
+        </div>
+        {%- if form.posted_successfully? -%}
+          <p class="newsletter-success">{{ section.settings.success_text }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <p class="newsletter-error">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
       {% endform %}
     </div>
   </div>
@@ -38,14 +47,21 @@
     },
     {
       "type": "text",
-      "id": "button_text",
-      "label": "Button text",
+      "id": "button_label",
+      "label": "Submit button label",
       "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Thanks for subscribing!"
     }
   ],
   "presets": [
     {
-      "name": "Newsletter"
+      "name": "Newsletter",
+      "settings": {}
     }
   ]
 }

@@ -1,23 +1,24 @@
 <div class="section-content">
   <div id="w-node-f2a41497-9d30-f64b-72cc-634bd0b7ce0e-1362cce0" class="title-content">
     <div class="title">
-      <h2>{{ section.settings.title }}</h2>
+      <div class="title">{{ section.settings.title }}</div>
     </div>
     {% if section.settings.view_all_link != blank %}
-      <a href="{{ section.settings.view_all_link }}" class="secondary-button">
+      <div class="secondary-button">
         <div class="text-8">VIEW ALL</div>
         <img src="{{ 'vectors-wrapper-3.svg' | asset_url }}" loading="lazy" width="24" height="24" alt="" class="vectors-wrapper-8"/>
-      </a>
+      </div>
     {% endif %}
   </div>
 
-  <div class="recent-cards">
+  <div id="w-node-_7125dde7-3954-f537-34f7-0b0dd4aded5b-1362cce0" class="recent-cards">
     {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
-      <div class="card-2">
+      <div class="card-2 {% if forloop.first %}_01{% else %}_02{% endif %}">
         <a href="{{ product.url }}">
           <img src="{{ product.featured_image | img_url: 'master' }}" 
                loading="lazy" 
-               width="500" 
+               width="500"
+               height="614" 
                alt="{{ product.title }}" 
                class="image"/>
           <div class="frame-12">
@@ -49,21 +50,23 @@
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 12,
-      "step": 2,
+      "max": 4,
+      "step": 1,
       "default": 2,
-      "label": "Number of products to show"
+      "label": "Products to show"
     },
     {
       "type": "url",
       "id": "view_all_link",
-      "label": "View All Link"
+      "label": "View all link"
     }
   ],
   "presets": [
     {
       "name": "Featured Collection",
-      "category": "Collection"
+      "settings": {
+        "products_to_show": 2
+      }
     }
   ]
 }

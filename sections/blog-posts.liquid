@@ -3,13 +3,15 @@
     <div class="title">{{ section.settings.title }}</div>
   </div>
   
-  <div class="div-block-18">
+  <div id="w-node-_96482f02-e59a-dd93-1310-48dc70d59c2e-1362cce0" class="div-block-18">
     <div class="div-block-24 blog">
       {% for article in blogs[section.settings.blog].articles limit: section.settings.post_limit %}
-        <div class="blog-card">
+        <div id="w-node-_74aee0e2-a5ad-c6f8-d520-839a329a9c61-1362cce0" class="blog-card">
           {% if article.image %}
             <img src="{{ article.image | img_url: 'master' }}"
                  loading="lazy"
+                 width="500"
+                 height="403"
                  alt="{{ article.title }}"
                  class="image-13"/>
           {% endif %}
@@ -23,10 +25,10 @@
     
     {% if section.settings.view_all_link != blank %}
       <div class="div-block-9">
-        <a href="{{ section.settings.view_all_link }}" class="secondary-button">
+        <div class="secondary-button">
           <div class="text-8">VIEW ALL</div>
           <img src="{{ 'vectors-wrapper-3.svg' | asset_url }}" loading="lazy" width="24" height="24" alt="" class="vectors-wrapper-8"/>
-        </a>
+        </div>
       </div>
     {% endif %}
   </div>
@@ -51,21 +53,23 @@
       "type": "range",
       "id": "post_limit",
       "min": 2,
-      "max": 6,
-      "step": 2,
+      "max": 4,
+      "step": 1,
       "default": 2,
       "label": "Posts to show"
     },
     {
       "type": "url",
       "id": "view_all_link",
-      "label": "View All Link"
+      "label": "View all link"
     }
   ],
   "presets": [
     {
       "name": "Blog Posts",
-      "category": "Blog"
+      "settings": {
+        "post_limit": 2
+      }
     }
   ]
 }

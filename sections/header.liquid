@@ -10,19 +10,27 @@
                alt="{{ shop.name }}" 
                class="logo">
         {% else %}
-          {{ shop.name }}
+          <img src="{{ 'vectors-wrapper-1.svg' | asset_url }}"
+               loading="lazy" 
+               width="195" 
+               height="22" 
+               alt="{{ shop.name }}" 
+               class="logo">
         {% endif %}
       </a>
       
-      <nav class="menu-2">
-        {% for link in section.settings.menu.links %}
-          <a href="{{ link.url }}" class="menu-link">{{ link.title }}</a>
-        {% endfor %}
-        
+      <div class="menu-2">
+        <a href="{{ routes.collections_url }}" class="menu-link">SHOP</a>
+        <a href="/collections/best-sellers" class="menu-link">BEST SELLERS</a>
+        <a href="{{ routes.blog_url }}" class="menu-link">JOURNAL</a>
+        <a href="/pages/features" class="menu-link">FEATURES</a>
+        <a href="/collections/lookbooks" class="menu-link">LOOKBOOKS</a>
+        <a href="{{ routes.search_url }}" class="menu-link">SEARCH</a>
+        <div class="menu-link">{{ localization.country.name }}</div>
         {% if shop.customer_accounts_enabled %}
           <a href="{{ routes.account_url }}" class="menu-link">LOGIN</a>
         {% endif %}
-      </nav>
+      </div>
       
       <div class="div-block-29">
         <a href="{{ routes.cart_url }}" class="cart-icon-link">
@@ -34,7 +42,7 @@
                class="shopping-cart-icon">
           <span class="cart-count">{{ cart.item_count }}</span>
         </a>
-        <button class="menu-toggle">
+        <button type="button" class="menu-toggle js-menu-toggle">
           <img src="{{ 'menu_48dp_ffffff_fill0_wght200_grad0_opsz48.svg' | asset_url }}" 
                loading="lazy" 
                alt="Menu" 
@@ -53,6 +61,16 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 195
     },
     {
       "type": "link_list",
