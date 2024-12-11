@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Sakoofa",
+    "theme_name": "Sakoofa Fashion",
     "theme_version": "1.0.0",
-    "theme_author": "Your Name",
-    "theme_documentation_url": "",
-    "theme_support_url": ""
+    "theme_author": "Sakoofa",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
   },
   {
     "name": "Colors",
@@ -20,31 +20,7 @@
         "type": "color",
         "id": "secondary_color",
         "label": "Secondary Color",
-        "default": "#ffffff"
-      },
-      {
-        "type": "color",
-        "id": "accent_color",
-        "label": "Accent Color",
-        "default": "#333333"
-      },
-      {
-        "type": "color",
-        "id": "text_color",
-        "label": "Text Color",
-        "default": "#333333"
-      },
-      {
-        "type": "color",
-        "id": "button_color",
-        "label": "Button Color",
-        "default": "#000000"
-      },
-      {
-        "type": "color",
-        "id": "button_text_color",
-        "label": "Button Text Color",
-        "default": "#ffffff"
+        "default": "#FFFFFF"
       }
     ]
   },
@@ -55,167 +31,7 @@
         "type": "font_picker",
         "id": "heading_font",
         "label": "Heading Font",
-        "default": "helvetica_n4"
-      },
-      {
-        "type": "font_picker",
-        "id": "body_font",
-        "label": "Body Font",
-        "default": "helvetica_n4"
-      },
-      {
-        "type": "range",
-        "id": "base_font_size",
-        "label": "Base Font Size",
-        "min": 12,
-        "max": 20,
-        "step": 1,
-        "default": 14,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "heading_scale",
-        "label": "Heading Scale",
-        "min": 1.0,
-        "max": 2.0,
-        "step": 0.1,
-        "default": 1.2
-      }
-    ]
-  },
-  {
-    "name": "Header",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "sticky_header",
-        "label": "Sticky Header",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_search",
-        "label": "Show Search",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_cart",
-        "label": "Show Cart",
-        "default": true
-      }
-    ]
-  },
-  {
-    "name": "Footer",
-    "settings": [
-      {
-        "type": "text",
-        "id": "footer_text",
-        "label": "Footer Text",
-        "default": " 2024 Sakoofa. All rights reserved."
-      },
-      {
-        "type": "checkbox",
-        "id": "show_payment_icons",
-        "label": "Show Payment Icons",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_social_icons",
-        "label": "Show Social Icons",
-        "default": true
-      }
-    ]
-  },
-  {
-    "name": "Social Media",
-    "settings": [
-      {
-        "type": "text",
-        "id": "social_instagram_link",
-        "label": "Instagram URL"
-      },
-      {
-        "type": "text",
-        "id": "social_facebook_link",
-        "label": "Facebook URL"
-      },
-      {
-        "type": "text",
-        "id": "social_twitter_link",
-        "label": "Twitter URL"
-      },
-      {
-        "type": "text",
-        "id": "social_tiktok_link",
-        "label": "TikTok URL"
-      }
-    ]
-  },
-  {
-    "name": "Product Grid",
-    "settings": [
-      {
-        "type": "select",
-        "id": "product_grid_layout",
-        "label": "Grid Layout",
-        "options": [
-          {
-            "value": "2",
-            "label": "2 per row"
-          },
-          {
-            "value": "3",
-            "label": "3 per row"
-          },
-          {
-            "value": "4",
-            "label": "4 per row"
-          }
-        ],
-        "default": "3"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_vendor",
-        "label": "Show Vendor",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_price",
-        "label": "Show Price",
-        "default": true
-      }
-    ]
-  },
-  {
-    "name": "Cart",
-    "settings": [
-      {
-        "type": "select",
-        "id": "cart_type",
-        "label": "Cart Type",
-        "options": [
-          {
-            "value": "drawer",
-            "label": "Slide-out Drawer"
-          },
-          {
-            "value": "page",
-            "label": "Cart Page"
-          }
-        ],
-        "default": "drawer"
-      },
-      {
-        "type": "checkbox",
-        "id": "cart_notes_enable",
-        "label": "Enable Cart Notes",
-        "default": true
+        "default": "inconsolata_n7"
       }
     ]
   }
