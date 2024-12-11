@@ -1,38 +1,52 @@
+{%- liquid
+  assign main_menu = linklists[section.settings.menu].links
+-%}
+
 <div class="nav-bar">
   <div class="div-block-8">
     <div class="frame-25">
       <a href="/" class="logo-link">
         {% if section.settings.logo != blank %}
-          <img 
-            src="{{ section.settings.logo | image_url: width: 195 }}"
-            alt="{{ shop.name }}"
-            width="195"
-            height="22"
-            loading="lazy"
-            class="logo"
-          >
+          <img src="{{ section.settings.logo | img_url: 'master' }}" 
+               alt="{{ shop.name }}"
+               width="195"
+               height="22"
+               loading="lazy"
+               class="logo">
         {% else %}
-          {{ shop.name }}
+          <span class="h4">{{ shop.name }}</span>
         {% endif %}
       </a>
 
       <nav class="menu-2">
-        {% for link in section.settings.menu.links %}
-          <a href="{{ link.url }}" class="menu-link">{{ link.title | upcase }}</a>
+        {% for link in main_menu %}
+          <a href="{{ link.url }}" class="menu-link">{{ link.title }}</a>
         {% endfor %}
       </nav>
 
       <div class="div-block-29">
-        <a href="{{ routes.cart_url }}" class="shopping-cart-icon">
-          <img src="{{ 'cart-icon.svg' | asset_url }}" loading="lazy" width="27" height="26" alt="Cart" />
+        <a href="{{ routes.cart_url }}" class="cart-icon-link">
+          {% render 'icon-cart' %}
+          <span class="cart-count">{{ cart.item_count }}</span>
         </a>
-        <button class="menu-icon js-menu-toggle">
-          <img src="{{ 'menu-icon.svg' | asset_url }}" loading="lazy" alt="Menu" />
+        <button type="button" class="menu-toggle" aria-expanded="false">
+          {% render 'icon-menu' %}
         </button>
       </div>
     </div>
   </div>
 </div>
+
+{% if template.name == 'index' %}
+  <div class="div-block-30">
+    <div class="header-image">
+      <div class="text-and-button">
+        <div class="text-block">{{ section.settings.hero_text }}</div>
+        <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text }}</a>
+      </div>
+    </div>
+  </div>
+{% endif %}
 
 {% schema %}
 {
@@ -48,6 +62,23 @@
       "id": "menu",
       "label": "Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "hero_text",
+      "label": "Hero Text",
+      "default": "WINTER 2024"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "VIEW COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
     }
   ]
 }
@@ -55,54 +86,60 @@
 
 {% stylesheet %}
 .nav-bar {
-  background-color: #fff;
+  background-color: #000;
   padding: 20px 0;
-}
-
-.div-block-8 {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
 
 .frame-25 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logo {
-  width: 195px;
+  max-width: 195px;
   height: auto;
 }
 
 .menu-2 {
   display: flex;
-  gap: 20px;
+  gap: 24px;
 }
 
 .menu-link {
-  font-family: var(--font-family);
-  text-transform: uppercase;
+  color: #fff;
   text-decoration: none;
-  color: inherit;
+  font-family: 'Inconsolata', monospace;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
-.div-block-29 {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.shopping-cart-icon,
-.menu-icon {
+.header-image {
+  height: 80vh;
+  background-image: url('{{ section.settings.hero_image | img_url: "master" }}');
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+  color: #fff;
+}
+
+.text-and-button {
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+  margin-top: 20px;
+  font-family: 'Inconsolata', monospace;
 }
 
 @media screen and (max-width: 768px) {
