@@ -1,41 +1,38 @@
 <!DOCTYPE html>
-<html data-wf-page="{{ page.id }}" data-wf-site="{{ shop.id }}">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="">
-  <link rel="canonical" href="{{ canonical_url }}">
-  
-  <title>{{ page_title }}</title>
-  
-  {% if page_description %}
-    <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
-  
-  {{ content_for_header }}
-  
-  <!-- Theme stylesheets -->
-  {{ 'webflow-style.css' | asset_url | stylesheet_tag }}
-  
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- Theme scripts -->
-  <script src="{{ 'jquery.js' | asset_url }}" defer></script>
-  <script src="{{ 'webflow-script.js' | asset_url }}" defer></script>
-</head>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    
+    <title>{{ page_title | escape }}{% if page_title contains shop.name == false %} | {{ shop.name }}{% endif %}</title>
 
-<body>
-  {% section 'announcement-bar' %}
-  {% section 'header' %}
-  
-  <main role="main">
-    {{ content_for_layout }}
-  </main>
-  
-  {% section 'footer' %}
-</body>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
+
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+
+    {{ content_for_header }}
+  </head>
+
+  <body>
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    {{ 'theme.js' | asset_url | script_tag }}
+  </body>
 </html>
