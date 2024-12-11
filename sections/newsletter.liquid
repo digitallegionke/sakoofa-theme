@@ -1,31 +1,19 @@
-<div class="section-content footer-sa">
-  <div class="div-block-18">
-    <div id="w-node-a7bc5a15-ced1-2661-adfb-c50a871cb8c2-1362cce0" class="newsletter">
-      <div class="frame-18">
-        <div class="text-block-3">{{ section.settings.heading | newline_to_br }}</div>
-      </div>
-      
-      {% form 'customer', class: 'newsletter-form' %}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <div class="newsletter-form">
-          <input type="email"
-                 name="contact[email]"
-                 class="text-field w-input"
-                 value="{% if customer %}{{ customer.email }}{% endif %}"
-                 placeholder="{{ section.settings.email_placeholder }}"
-                 required>
-          <input type="submit"
-                 value="{{ section.settings.button_label }}"
-                 class="submit-button w-button">
-        </div>
-        {%- if form.posted_successfully? -%}
-          <p class="newsletter-success">{{ section.settings.success_text }}</p>
-        {%- endif -%}
-        {%- if form.errors -%}
-          <p class="newsletter-error">{{ form.errors | default_errors }}</p>
-        {%- endif -%}
-      {% endform %}
-    </div>
+<div class="newsletter-section">
+  <div class="newsletter-content">
+    <h2>{{ section.settings.title }}</h2>
+    <div class="newsletter-text">{{ section.settings.text }}</div>
+    
+    {% form 'customer', class: 'newsletter-form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" 
+             name="contact[email]" 
+             class="newsletter-input" 
+             placeholder="{{ section.settings.placeholder }}"
+             required>
+      <button type="submit" class="newsletter-button w-button">
+        {{ section.settings.button_label }}
+      </button>
+    {% endform %}
   </div>
 </div>
 
@@ -35,62 +23,34 @@
   "settings": [
     {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Receive special offers and first look at\nnew products."
+      "id": "title",
+      "label": "Title",
+      "default": "Subscribe to our newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>"
     },
     {
       "type": "text",
-      "id": "email_placeholder",
-      "label": "Email placeholder text",
+      "id": "placeholder",
+      "label": "Input placeholder text",
       "default": "Enter your email"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Submit button label",
+      "label": "Button label",
       "default": "Subscribe"
-    },
-    {
-      "type": "text",
-      "id": "success_text",
-      "label": "Success message",
-      "default": "Thanks for subscribing!"
     }
   ],
   "presets": [
     {
       "name": "Newsletter",
-      "settings": {}
+      "category": "Promotional"
     }
   ]
 }
 {% endschema %}
-
-{% stylesheet %}
-.newsletter-form {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.newsletter-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.newsletter-submit {
-  padding: 10px 20px;
-  background: #000;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.newsletter-submit:hover {
-  background: #333;
-}
-{% endstylesheet %}
