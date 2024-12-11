@@ -1,0 +1,246 @@
+1. sections/header.liquid
+{% section 'header' %}
+<section class="header-wrapper">
+  <div class="nav-and-anno home">
+    <div class="announcement-wrapper">
+      {{ section.settings.announcement_text }}
+    </div>
+
+    <div class="nav-bar">
+      <div class="div-block-8">
+        <img src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}" class="logo">
+
+        <nav class="menu-2">
+          {% for link in linklists['main-menu'].links %}
+            <a href="{{ link.url }}" class="menu-link">{{ link.title | upcase }}</a>
+          {% endfor %}
+        </nav>
+
+        <div class="div-block-29">
+          <a href="{{ routes.cart_url }}" class="shopping-cart-icon">
+            {% render 'icon-cart' %}
+          </a>
+          <button class="menu-icon" data-mobile-menu-trigger>
+            {% render 'icon-menu' %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-image">
+      <div class="text-and-button">
+        <div class="text-block">{{ section.settings.header_text }}</div>
+        <a href="{{ section.settings.collection_link }}" class="button">{{ section.settings.button_text }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement Text",
+        "default": "Free shipping on all orders over €100"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "header_text",
+        "label": "Header Text",
+        "default": "WINTER 2024"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "VIEW COLLECTION"
+      },
+      {
+        "type": "url",
+        "id": "collection_link",
+        "label": "Collection Link"
+      }
+    ]
+  }
+{% endcomment %}
+
+2. sections/recent-drops.liquid
+{% section 'recent-drops' %}
+<section class="section-sa-2">
+  <div class="section-wrap">
+    <div class="section-content">
+      <div class="title-content">
+        <div class="title">{{ section.settings.title }}</div>
+        <a href="{{ section.settings.view_all_link }}" class="secondary-button">
+          VIEW ALL
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+
+      <div class="recent-cards">
+        {% for product in collections[section.settings.collection].products limit: 2 %}
+          <div class="card-2">
+            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+            <div class="frame-12">
+              <div class="product-text">{{ product.title }}</div>
+              <div class="product-price">{{ product.price | money }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+  {
+    "name": "Recent Drops",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Recent Drops"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      },
+      {
+        "type": "url",
+        "id": "view_all_link",
+        "label": "View All Link"
+      }
+    ]
+  }
+{% endcomment %}
+
+3. sections/collections.liquid
+{% section 'collections' %}
+<section class="section-sa-2">
+  <div class="section-wrap">
+    <div class="section-content">
+      <div class="title-content">
+        <div class="title">{{ section.settings.title }}</div>
+        <div class="frame-15">
+          {% for category in section.settings.categories | split: ',' %}
+            <div class="text-13">{{ category | strip | upcase }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="div-block-35">
+        <div class="div-block-24">
+          {% for product in collections[section.settings.collection].products limit: 5 %}
+            <img
+              src="{{ product.featured_image | img_url: 'large' }}"
+              alt="{{ product.title }}"
+              class="collection-image"
+            >
+          {% endfor %}
+        </div>
+
+        <div class="div-block-9">
+          <a href="{{ section.settings.view_all_link }}" class="secondary-button">
+            VIEW ALL
+            {% render 'icon-arrow' %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+  {
+    "name": "Collections",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Collections"
+      },
+      {
+        "type": "text",
+        "id": "categories",
+        "label": "Categories",
+        "info": "Comma-separated list of categories",
+        "default": "Tops, Bottoms, Outwears, Dresses & Skirts"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      },
+      {
+        "type": "url",
+        "id": "view_all_link",
+        "label": "View All Link"
+      }
+    ]
+  }
+{% endcomment %}
+
+4. sections/blog.liquid
+{% section 'blog' %}
+<section class="section-sa-2">
+  <div class="section-wrap">
+    <div class="section-content">
+      <div class="title-content">
+        <div class="title">{{ section.settings.title }}</div>
+      </div>
+
+      <div class="footer-block">
+        <div class="div-block-24 blog">
+          {% for article in blog[section.settings.blog].articles limit: 2 %}
+            <div class="blog-card">
+              {% if article.image %}
+                <img src="{{ article.image | img_url: 'medium' }}" alt="{{ article.title }}">
+              {% endif %}
+              <div class="frame-20">
+                <div class="text-27">{{ article.title }}</div>
+                <div class="text-28">{{ article.published_at | date: '%B %d, %Y' }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="div-block-9">
+          <a href="{{ blog[section.settings.blog].url }}" class="secondary-button">
+            VIEW ALL
+            {% render 'icon-arrow' %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+  {
+    "name": "Blog Posts",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Blog"
+      },
+      {
+        "type": "blog",
+        "id": "blog",
+        "label": "Select Blog"
+      }
+    ]
+  }
+{% endcomment %}
