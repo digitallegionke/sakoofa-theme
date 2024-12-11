@@ -1,30 +1,19 @@
-<div class="section-content">
-  <div id="w-node-f2a41497-9d30-f64b-72cc-634bd0b7ce0e-1362cce0" class="title-content">
-    <div class="title">
-      <div class="title">{{ section.settings.title }}</div>
-    </div>
+<div class="featured-collection">
+  <div class="collection-header">
+    <h2>{{ section.settings.title }}</h2>
     {% if section.settings.view_all_link != blank %}
-      <div class="secondary-button">
-        <div class="text-8">VIEW ALL</div>
-        <img src="{{ 'vectors-wrapper-3.svg' | asset_url }}" loading="lazy" width="24" height="24" alt="" class="vectors-wrapper-8"/>
-      </div>
+      <a href="{{ section.settings.view_all_link }}" class="view-all">View All</a>
     {% endif %}
   </div>
-
-  <div id="w-node-_7125dde7-3954-f537-34f7-0b0dd4aded5b-1362cce0" class="recent-cards">
-    {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
-      <div class="card-2 {% if forloop.first %}_01{% else %}_02{% endif %}">
-        <a href="{{ product.url }}">
-          <img src="{{ product.featured_image | img_url: 'master' }}" 
-               loading="lazy" 
-               width="500"
-               height="614" 
-               alt="{{ product.title }}" 
-               class="image"/>
-          <div class="frame-12">
-            <div class="text-9">{{ product.title }}</div>
-            <div class="text-10">{{ product.price | money }}</div>
-          </div>
+  
+  <div class="products-grid">
+    {%- assign collection = collections[section.settings.collection] -%}
+    {% for product in collection.products limit: section.settings.products_to_show %}
+      <div class="product-card">
+        <a href="{{ product.url }}" class="product-link">
+          {{ product.featured_image | image_url: width: 400 | image_tag: class: 'product-image', loading: 'lazy' }}
+          <h3 class="product-title">{{ product.title }}</h3>
+          <div class="product-price">{{ product.price | money }}</div>
         </a>
       </div>
     {% endfor %}
@@ -39,7 +28,7 @@
       "type": "text",
       "id": "title",
       "label": "Title",
-      "default": "Recent Drops"
+      "default": "Featured Collection"
     },
     {
       "type": "collection",
@@ -49,10 +38,10 @@
     {
       "type": "range",
       "id": "products_to_show",
-      "min": 2,
-      "max": 4,
-      "step": 1,
-      "default": 2,
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "default": 6,
       "label": "Products to show"
     },
     {
@@ -64,9 +53,7 @@
   "presets": [
     {
       "name": "Featured Collection",
-      "settings": {
-        "products_to_show": 2
-      }
+      "category": "Collection"
     }
   ]
 }
