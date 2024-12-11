@@ -1,105 +1,29 @@
-{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+{{ 'webflow-style.css' | asset_url | stylesheet_tag }}
 
-<div class="hero-banner">
-  <div class="hero-image-container">
-    <div class="hero-image hero-image-left">
-      <img src="{{ 'hero-left.jpg' | asset_img_url: 'master' }}" alt="Winter Collection Left">
+<section>
+  <section class="header-wrapper">
+    <!-- Your announcement bar -->
+    <div class="nav-and-anno home">
+      <!-- Your announcement content -->
     </div>
-    <div class="hero-image hero-image-right">
-      <img src="{{ 'hero-right.jpg' | asset_img_url: 'master' }}" alt="Winter Collection Right">
+    
+    <!-- Your navigation -->
+    <div class="nav-bar">
+      <!-- Your navigation content -->
     </div>
-  </div>
-  <div class="hero-content">
-    <h1 class="hero-title">WINTER 2024</h1>
-    <a href="{{ section.settings.collection_link }}" class="hero-button">VIEW COLLECTION</a>
-  </div>
-</div>
-
-<style>
-.hero-banner {
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  background-color: #f5f5f5;
-}
-
-.hero-image-container {
-  display: flex;
-  height: 100%;
-  width: 100%;
-}
-
-.hero-image {
-  flex: 1;
-  overflow: hidden;
-}
-
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-  color: #ffffff;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  margin-bottom: 2rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-}
-
-.hero-button {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  color: #000000;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  transition: all 0.3s ease;
-}
-
-.hero-button:hover {
-  background-color: #000000;
-  color: #ffffff;
-}
-</style>
+    
+    <!-- Your header image -->
+    <div class="div-block-30">
+      <!-- Your header image content -->
+    </div>
+  </section>
+</section>
 
 {% schema %}
 {
-  "name": "Hero Banner",
+  "name": "Header",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "image_left",
-      "label": "Left Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_right",
-      "label": "Right Image"
-    },
-    {
-      "type": "url",
-      "id": "collection_link",
-      "label": "Collection Link"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Hero Banner",
-      "category": "Image"
-    }
+    // Your settings here
   ]
 }
 {% endschema %}
