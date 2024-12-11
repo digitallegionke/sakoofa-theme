@@ -1,29 +1,18 @@
 {% if section.settings.show_announcement %}
-<div class="announcement-wrapper">
-  <div class="announcement">
-    <div class="ann-container">
-      {% for i in (1..3) %}
+  <div class="announcement-wrapper">
+    <div class="announcement">
+      <div class="ann-container">
         <div class="text-icon-wrapper">
           <div class="frame-24">
             <div class="announcment-text">{{ section.settings.announcement_text }}</div>
           </div>
-          <img src="{{ 'vectors-wrapper.svg' | asset_url }}" loading="lazy" width="8.485280990600586" height="8.485280990600586" alt="" class="vectors-wrapper-5"/>
+          {% if section.settings.announcement_icon != blank %}
+            {{ section.settings.announcement_icon | image_url: width: 20 | image_tag: class: 'announcement-icon', loading: 'lazy' }}
+          {% endif %}
         </div>
-      {% endfor %}
-    </div>
-    <!-- Duplicate containers for infinite scroll effect -->
-    <div class="ann-container">
-      {% for i in (1..3) %}
-        <div class="text-icon-wrapper">
-          <div class="frame-24">
-            <div class="announcment-text">{{ section.settings.announcement_text }}</div>
-          </div>
-          <img src="{{ 'vectors-wrapper.svg' | asset_url }}" loading="lazy" width="8.485280990600586" height="8.485280990600586" alt="" class="vectors-wrapper-5"/>
-        </div>
-      {% endfor %}
+      </div>
     </div>
   </div>
-</div>
 {% endif %}
 
 {% schema %}
@@ -41,6 +30,17 @@
       "id": "announcement_text",
       "label": "Announcement text",
       "default": "Free shipping on all orders over €100"
+    },
+    {
+      "type": "image_picker",
+      "id": "announcement_icon",
+      "label": "Announcement icon"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "category": "Header"
     }
   ]
 }
