@@ -1,135 +1,91 @@
-{{ 'custom-styles.css' | asset_url | stylesheet_tag }}
-
 <div class="recent-drops">
-  <div class="section-header">
-    <h2 class="section-title">RECENT DROPS</h2>
-    {% if section.settings.view_all_link != blank %}
-      <a href="{{ section.settings.view_all_link }}" class="view-all">VIEW ALL</a>
-    {% else %}
-      <a href="/collections/all" class="view-all">VIEW ALL</a>
-    {% endif %}
+  <div class="drops-header">
+    <h2>{{ section.settings.title }}</h2>
   </div>
   
-  <div class="products-grid">
-    {% for product in section.settings.collection.products limit: 4 %}
-      <div class="product-card">
-        <a href="{{ product.url }}" class="product-link">
-          <div class="product-image">
-            {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
-            {% else %}
-              {{ 'product-1' | placeholder_svg_tag: 'product-image placeholder' }}
-            {% endif %}
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">{{ product.title }}</h3>
-            <span class="product-price">{{ product.price | money }}</span>
-          </div>
-        </a>
+  <div class="drops-grid">
+    {% for block in section.blocks %}
+      <div class="drop-card" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 600 | image_tag: 
+            class: 'drop-image',
+            loading: 'lazy'
+          }}
+        {% endif %}
+        <div class="drop-content">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.description }}</p>
+          {% if block.settings.button_label != blank %}
+            <a href="{{ block.settings.button_link }}" class="drop-button w-button">
+              {{ block.settings.button_label }}
+            </a>
+          {% endif %}
+        </div>
       </div>
     {% endfor %}
   </div>
 </div>
-
-<style>
-.recent-drops {
-  padding: 4rem 2rem;
-  background-color: #ffffff;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.section-title {
-  font-size: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-}
-
-.view-all {
-  color: #000000;
-  text-decoration: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.product-card {
-  position: relative;
-}
-
-.product-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.product-image {
-  aspect-ratio: 3/4;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-image img {
-  transform: scale(1.05);
-}
-
-.product-info {
-  text-align: left;
-}
-
-.product-title {
-  font-size: 1rem;
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-}
-
-.product-price {
-  font-size: 0.9rem;
-  color: #666666;
-}
-
-@media (max-width: 768px) {
-  .recent-drops {
-    padding: 2rem 1rem;
-  }
-}
-</style>
 
 {% schema %}
 {
   "name": "Recent Drops",
   "settings": [
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
-    },
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Recent Drops"
+    }
+  ],
+  "blocks": [
     {
-      "type": "url",
-      "id": "view_all_link",
-      "label": "View All Link"
+      "type": "drop",
+      "name": "Drop",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "New Drop"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Recent Drops",
-      "category": "Collection"
+      "blocks": [
+        {
+          "type": "drop"
+        },
+        {
+          "type": "drop"
+        },
+        {
+          "type": "drop"
+        }
+      ]
     }
   ]
 }
