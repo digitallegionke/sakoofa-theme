@@ -1,52 +1,36 @@
-{%- assign section_name = 'header' -%}
-
-<div class="announcement-wrapper">
-  <div class="announcement">
-    <div class="ann-container">
-      <div class="text-icon-wrapper">
-        <div class="frame-24">
-          <div class="announcment-text">Free shipping on all orders over €100</div>
-        </div>
-        {%- if section.settings.image1 != blank -%}
-          {{ section.settings.image1 | image_url: width: 1080 | image_tag: 
-            class: 'card-img-top',
-            loading: 'lazy'
-          }}
-        {%- endif -%}
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="nav-bar">
   <div class="div-block-8">
     <div class="frame-25">
-      {%- if section.settings.image10 != blank -%}
-        {{ section.settings.image10 | image_url: width: 1080 | image_tag: 
-          class: 'logo-img',
-          loading: 'lazy'
-        }}
-      {%- endif -%}
-      <div class="menu-2">
-        <div class="menu-link">SHOP</div>
-        <div class="menu-link">BEST SELLERS</div>
-        <div class="menu-link">JOURNAL</div>
-        <div class="menu-link">FEATURES</div>
-        <div class="menu-link">LOOKBOOKS</div>
-        <div class="menu-link">SEARCH</div>
-        <div class="menu-link">UNITED STATES</div>
-        <div class="menu-link">LOGIN</div>
+      <a href="/" class="logo-link">
+        {% if section.settings.logo != blank %}
+          <img 
+            src="{{ section.settings.logo | image_url: width: 195 }}"
+            alt="{{ shop.name }}"
+            width="195"
+            height="22"
+            loading="lazy"
+            class="logo"
+          >
+        {% else %}
+          {{ shop.name }}
+        {% endif %}
+      </a>
+
+      <nav class="menu-2">
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}" class="menu-link">{{ link.title | upcase }}</a>
+        {% endfor %}
+      </nav>
+
+      <div class="div-block-29">
+        <a href="{{ routes.cart_url }}" class="shopping-cart-icon">
+          <img src="{{ 'cart-icon.svg' | asset_url }}" loading="lazy" width="27" height="26" alt="Cart" />
+        </a>
+        <button class="menu-icon js-menu-toggle">
+          <img src="{{ 'menu-icon.svg' | asset_url }}" loading="lazy" alt="Menu" />
+        </button>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="header-image">
-  <div class="text-and-button">
-    <div class="text-block">WINTER 2024</div>
-    <a href="{{ section.settings.link1 }}" class="button w-button">
-      {{ section.settings.link1text }}
-    </a>
   </div>
 </div>
 
@@ -56,37 +40,74 @@
   "settings": [
     {
       "type": "image_picker",
-      "id": "image1",
-      "label": "Announcement Icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "image10",
+      "id": "logo",
       "label": "Logo"
     },
     {
-      "type": "url",
-      "id": "link1",
-      "label": "Button Link"
-    },
-    {
-      "type": "text",
-      "id": "link1text",
-      "label": "Button Text",
-      "default": "VIEW COLLECTION"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Header",
-      "category": "Header"
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
     }
   ]
 }
 {% endschema %}
 
 {% stylesheet %}
-{% endstylesheet %}
+.nav-bar {
+  background-color: #fff;
+  padding: 20px 0;
+}
 
-{% javascript %}
-{% endjavascript %}
+.div-block-8 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.frame-25 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 195px;
+  height: auto;
+}
+
+.menu-2 {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-link {
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+}
+
+.div-block-29 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.shopping-cart-icon,
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-2 {
+    display: none;
+  }
+}
+{% endstylesheet %}
